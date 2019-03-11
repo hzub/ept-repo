@@ -31,7 +31,13 @@ jobs:
 
       # run tests!
       - run: npm run build
-
+      - aws-s3/sync:
+          from: dist
+          to: 's3://art-test-ci-alpha/'
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          overwrite: true
 workflows:
   version: 2
   perform_build:
