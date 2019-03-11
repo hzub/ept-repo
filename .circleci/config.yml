@@ -1,9 +1,11 @@
-version: 2
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@1.0.4
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/python:2.7-node
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -31,7 +33,13 @@ jobs:
 
       # run tests!
       - run: npm run build
-
+      - aws-s3/sync:
+          from: dist
+          to: 's3://art-test-ci-alpha/'
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400" \
+          overwrite: true
 workflows:
   version: 2
   perform_build:
