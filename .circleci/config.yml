@@ -31,3 +31,12 @@ jobs:
 
       # run tests!
       - run: npm run build
+
+workflows:
+  version: 2
+  perform_build:
+    jobs:
+      - build
+        filters:
+          branches:
+            only: develop
