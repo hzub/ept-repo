@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   aws-s3: circleci/aws-s3@1.0.4
 jobs:
-  build-app:
+  build:
     docker:
       - image: circleci/python:2.7-node
     steps:
@@ -17,9 +17,10 @@ jobs:
             --cache-control "max-age=86400" \
           overwrite: true
 workflows:
-  perform_build:
+  version: 2.1
+  build:
     jobs:
-      - build-app:
+      - build:
           filters:
             branches:
               only: master
