@@ -6,7 +6,8 @@
     "webpack-dev-server": "^3.2.1"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode production --env.environment=production",
+    "build:staging": "webpack --mode production --env.environment=staging",
     "dev": "webpack-dev-server --content-base=./src/ --inline --hot",
     "start": "npm run dev"
   },
